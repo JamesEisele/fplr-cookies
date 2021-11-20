@@ -27,9 +27,9 @@ def main( ):
 
     for session in session_list:
         print(f'CHECKING SESSION: {session}')
+        
         # Specify Selenium options (Windows OS example).
         chrome_options = Options()
-        #chrome_options.add_argument(f'user-data-dir={scriptDirectory}\\userdata')
         chrome_options.add_argument(f'user-data-dir={session}')
         driver = webdriver.Chrome(
             executable_path=r'C:\\WebDriver\\bin\\chromedriver.exe',
