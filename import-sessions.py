@@ -41,10 +41,7 @@ def main( ):
         # (OPTIONAL) Manually verify that page is authenticated.
         driver.get(f'{base_URL}account/') 
         time.sleep(1)
-
-        # Print cookies & corresponding expiration dates
-        # TODO: Remove session data folder if session is expired by checking
-        # directory name against current UTC time.
+        # Print cookies & corresponding expiration dates in your local timezone.
         session_cookies = driver.get_cookies()
         for cookie in session_cookies:
             if cookie['name'][:19] == 'wordpress_logged_in':   # Only cookie we care about.
@@ -53,6 +50,9 @@ def main( ):
                 print(cookie['name'][:19])
 
         driver.quit()
+
+        # TODO: Remove session data folder if session is expired by checking
+        # directory name against current UTC time.
 
     sys.exit(0)
 
