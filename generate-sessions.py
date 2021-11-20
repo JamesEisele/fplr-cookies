@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 import time
 import pathlib
 import os
@@ -35,8 +36,9 @@ def main( ):
         # Specify Selenium options (Windows OS example).
         chrome_options = Options()
         chrome_options.add_argument(f'user-data-dir={scriptDirectory}\\sessions\\{session_name}')
+        chrome_service = Service(r'C:\\WebDriver\\bin\\chromedriver.exe')
         driver = webdriver.Chrome(
-            executable_path=r'C:\\WebDriver\\bin\\chromedriver.exe',
+            service=chrome_service,
             options=chrome_options)
 
         base_URL = r'https://fplreview.com/'

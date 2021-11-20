@@ -6,6 +6,7 @@ Selenium so that you can bypass CAPTCHAs when running automated scripts.
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import time
 import pathlib
 import sys
@@ -30,11 +31,11 @@ def main( ):
         
         # Specify Selenium options (Windows OS example).
         chrome_options = Options()
-        chrome_options.add_argument(f'user-data-dir={session}')
+        chrome_options.add_argument(f'user-data-dir={scriptDirectory}\\sessions\\{session_name}')
+        chrome_service = Service(r'C:\\WebDriver\\bin\\chromedriver.exe')
         driver = webdriver.Chrome(
-            executable_path=r'C:\\WebDriver\\bin\\chromedriver.exe',
-            options=chrome_options
-        )
+            service=chrome_service,
+            options=chrome_options)
 
         base_URL = 'https://fplreview.com/'
 
