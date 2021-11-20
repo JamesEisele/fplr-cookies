@@ -15,7 +15,12 @@ This repo is meant to serve as a proof of concept for bypassing the login CAPTCH
 
 3. Add your FPL Review login credentials to the `fplr_credentials.json` file.
 
-4. Run the script according to your use case as outlined in the [Generating / Exporting Cookies](#Generating-/-Exporting-Cookies) section.
+4. Install the latest [ChromeDriver](https://chromedriver.chromium.org/downloads) if you haven't already and specify it's path in both `generate-sessions.py` and `import-sessions.py`:
+    ```python
+    chrome_service = Service(r'C:\\WebDriver\\bin\\chromedriver.exe')
+    ```
+
+5. Run the script according to your use case as outlined in the [Generating / Exporting Cookies](#Generating-/-Exporting-Cookies) section.
     ```powershell
     PS C:\fplr-cookies> python3 generate-sessions.py
     ...
