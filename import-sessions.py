@@ -31,7 +31,7 @@ def main( ):
         
         # Specify Selenium options (Windows OS example).
         chrome_options = Options()
-        chrome_options.add_argument(f'user-data-dir={scriptDirectory}\\sessions\\{session_name}')
+        chrome_options.add_argument(f'user-data-dir={session}')
         chrome_service = Service(r'C:\\WebDriver\\bin\\chromedriver.exe')
         driver = webdriver.Chrome(
             service=chrome_service,
