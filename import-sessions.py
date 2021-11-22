@@ -4,12 +4,14 @@ This import script allows users to import existing Chromium sessions with
 Selenium so that you can bypass CAPTCHAs when running automated scripts.
 '''
 
+from datetime import datetime, timezone, timedelta
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import time
 import pathlib
 import sys
+import shutil
 
 def main( ):
 
@@ -24,11 +26,31 @@ def main( ):
     for session in session_list:
         print(f' - {session}')
     print('\n')
-    print('-'*80)
+
+    # Get current UTC time to compare against. Accuracy here isn't that
+    # necessary so we just stick to calling it once at runtime.
+    current_UTC = datetime.utcnow() # Naive datetime obj is preferable here.
 
     for session in session_list:
-        print(f'CHECKING SESSION: {session}')
-        
+        print('-'*80)
+        print(f'\nCHECKING SESSION: {session}')
+     
+        # Create datetime object from session data directory name.
+        timestamp_str = session.name
+        timestamp_str = timestamp_str[:-12] # Remove trailing "session-data".
+        timestamp_obj = datetime.strptime(timestamp_str, '%Y%m%dT%H%M%SZ')
+
+        # Check dir UTC timestamp agaisnt UTC time now, delete expired sessions.
+        if current_UTC > timestamp_obj:
+            print(' > Session data is expired! Deleting directory...')
+            try:
+                shutil.rmtree(session)
+                continue
+            except:
+                print(' > Failed to delete session data directory! ')
+        else:
+            print(' > Session data is still good.')
+
         # Specify Selenium options (Windows OS example).
         chrome_options = Options()
         chrome_options.add_argument(f'user-data-dir={session}')
@@ -51,9 +73,6 @@ def main( ):
                 print(cookie['name'][:19])
 
         driver.quit()
-
-        # TODO: Remove session data folder if session is expired by checking
-        # directory name against current UTC time.
 
     sys.exit(0)
 
