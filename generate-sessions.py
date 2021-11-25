@@ -61,7 +61,10 @@ def main( ):
         except:
             print('Failed to rename session data directory to reflect expiration date.')
 
-        # TODO: Add cleanup for session data files that are leftover from broken sessions/testing.
+        # TODO: Add cleanup for session data files that are leftover from
+        # broken sessions/testing. It's not a huge deal though because these
+        # directories would be marked as expired on import since imported dirs
+        # get their names checked for expiration anyway.
 
     sys.exit(0)
 
